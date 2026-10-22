@@ -1,0 +1,18 @@
+{
+  "name": "wirecheck",
+  "version": "0.1.0",
+  "description": "Find out how an \"OpenAI-compatible\" endpoint actually differs from OpenAI.",
+  "type": "module",
+  "bin": { "wirecheck": "./src/cli.ts" },
+  "scripts": {
+    "wirecheck": "bun run src/cli.ts",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": ["openai-compatible", "llm", "conformance", "sse", "agents"],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5.6.0"
+  }
+}
