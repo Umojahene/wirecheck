@@ -1,0 +1,29 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  # The whole suite runs with no provider keys and no network. That is the point
+  # of the fixture layer: CI can verify every probe's logic without an account,
+  # a balance, or a rate limit deciding whether the build goes green.
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - run: bun install --frozen-lockfile
+      - name: typecheck
+        run: bun run typecheck
+      - name: test
+        run: bun test
+      - name: cli smoke test
+        # --list and --dry-run must work with zero configuration.
+        run: |
+          bun run src/cli.ts --list
+          bun run src/cli.ts --help
+          bun run src/cli.ts --target ollama --dry-run
